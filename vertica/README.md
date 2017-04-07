@@ -40,10 +40,15 @@ Default Password (NO PASSWORD) -
 - for more advanced users
 
 ## Timeseries data
-To download: 
+To demonstrate the `TIMESLICE` facility of Vertica, we will use a dataset of GPS locations of Mallard ducks over a several month period in the UK. 
+
+To download, change into your preferred directory and run: 
 ```
 curl -O https://s3-us-west-2.amazonaws.com/cse599c-sp17/mallard.csv
 ```
+You can also download the data directly by pasting the above S3 link into your browser. 
+
+<small>Data from Kleyheeg E, van Dijk JGB, Tsopoglou-Gkina D, Woud TY, Boonstra DK, Nolet BA, Soons MB (2017) Movement patterns of a keystone waterbird species are highly predictable from landscape configuration. Movement Ecology 5(2). doi:10.1186/s40462-016-0092-7 </small>
 
 # Running a query
 - add sample queries
