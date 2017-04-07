@@ -44,6 +44,9 @@ Note that some functionality of the client depends on the Python PostgrSQL libra
 pip install psycopg2
 ```
 
+TODO: replace details in this script with actual small data
+Basic usage of the Python client is demonstrated in `sample.py`.
+
 #### Installation using a virtual environment
 For those that would rather use a [virtual environment](http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/), we provide a setup script to set that up and install the
 dependencies for the Python clients. Simply run (from this directory):
