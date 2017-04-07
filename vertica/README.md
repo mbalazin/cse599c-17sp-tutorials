@@ -23,18 +23,37 @@ steps should suffice.
 `docker run -p 5433:5433 sumitchawla/vertica`
 
 ## Installing the clients
-Different clients:
+There are several different clients available to comminucate with a Vertica database
+that should now be running on your computer on port 5433.
 
-### `vsql`
+### Interactive shell: `vsql`
 The vsql client is almost identical to the psql client for Postgres. [Go here](https://my.vertica.com/download/vertica/client-drivers/) to download the vsql client appropriate to your system. On OSX the download package will contain a binary `vsql` --- copy it into your working directory (preferably this one) and try to run it with `./vsql`. 
 
 To connect to a running Vertica database (like the one you've installed above), be sure that the database is running and connect with 
 ```
 ./vsql -d docker dbadmin
 ```
+### Python library
+The Python client library, `python-vertica`, is available on [Github](https://github.com/uber/vertica-python) and can be installed through a simple `pip` installation:
+```
+pip install vertica-python
+```
+Note that some functionality of the client depends on the Python PostgrSQL library, 
+`psycopg2`, which you may need to install as well.
+```
+pip install psycopg2
+```
 
-
-- vertica-python (virtualenv scripts)
+#### Installation using a virtual environment
+For those that would rather use a [virtual environment](http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/), we provide a setup script to set that up and install the
+dependencies for the Python clients. Simply run (from this directory):
+```
+./setup.sh
+```
+To activate the virtual environment:
+```
+source .env/bin/activate
+```
 
 ## Connecting to your Vertica database
 
