@@ -19,7 +19,7 @@ story_id = 0
 hidden_id = 0
 
 for i in range(0, num_stories):
-	created_at = str(helper.get_time(num_stories-i))[0:-7]
+	created_at = str(helper.get_time(num_stories-i))
 	user_id = str(random.randint(1, num_users))
 	url = get_random_url()
 	title = get_random_string(10)
@@ -31,8 +31,8 @@ for i in range(0, num_stories):
 	short_ids.append(short_id)
 	story_id += 1
 	is_expired = "0"
-	upvotes = "1"
-	downvotes = "0"
+	upvotes = str(random.randint(0, 10))
+	downvotes = str(random.randint(0, 10))
 	is_moderated = "0"
 	hotness = str(random.uniform(-100, 100))
 	markeddown_description = "<p>%s</p>"%get_random_string(description_length)
@@ -47,7 +47,7 @@ for i in range(0, num_stories):
 	hidden = random.randint(0, 10)
 	
 	
-	print ",".join( [str(i+1), created_at, description, hotness, markeddown_description, short_id, title, upvotes, url, user_id])
+	print ",".join( [str(i+1), created_at, description, hotness, markeddown_description, short_id, title, upvotes, downvotes, url, user_id])
 	
 	taggings_file.write("%s\n"%(",".join([str(i+1), str(story_id), tag_id])))
 	if hidden < 3:
