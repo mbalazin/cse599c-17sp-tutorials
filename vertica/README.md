@@ -24,10 +24,15 @@ steps should suffice.
 #### Run the container:
 `docker run -p 5433:5433 sumitchawla/vertica`
 
+#### Connection parameters:
+- Default DB Name: docker
+- Default User: dbadmin
+- Default Password: (NO PASSWORD) -
+
 ### 3. Install the clients
 There are several different clients available to comminucate with a Vertica database
 that should now be running on your computer on port 5433.
-
+ 
 #### Interactive shell: `vsql`
 The vsql client is almost identical to the psql client for Postgres. [Go here](https://my.vertica.com/download/vertica/client-drivers/) to download the vsql client appropriate to your system. If you are using the Docker image from above, download client drivers version 7.1.x. On OSX the download package will contain a binary `vsql` --- copy it into your working directory (preferably this one) and try to run it with `./vsql`. 
 
@@ -35,18 +40,20 @@ To connect to a running Vertica database (like the one you've installed above), 
 ```
 ./vsql -d docker dbadmin
 ```
-#### Python library
-The Python client library, `python-vertica`, is available on [Github](https://github.com/uber/vertica-python) and can be installed through a simple `pip` installation:
+#### Python library: `python-vertica` 
+*If you want to use a virtual environment, skip to the section below.*
+
+The Python client library is available on [Github](https://github.com/uber/vertica-python) and can be installed through a simple `pip` installation.
+Note that some functionality of the client depends on the Python PostgrSQL library, 
+`psycopg2`, which you may need to install as well (if you don't have it already).
 ```
 pip install vertica-python
-```
-Note that some functionality of the client depends on the Python PostgrSQL library, 
-`psycopg2`, which you may need to install as well.
-```
 pip install psycopg2
 ```
 
 #### Installation using a virtual environment
+*If you already have python-vertica installed on your system at this point, you can skip this part.*
+
 For those that would rather use a [virtual environment](http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/), we provide a setup script to set that up and install the
 dependencies for the Python clients. Simply run (from this directory):
 ```
@@ -57,23 +64,20 @@ To activate the virtual environment:
 source .env/bin/activate
 ```
 
-Basic usage of the Python client is demonstrated in `sample.py`.
+#### Making sure everything works
+Basic usage of the Python client is demonstrated in `sample.py`. 
+Try running this script to make sure everything works. We will go through each of
+the steps -- with more exciting examples -- in the class tutorial.
 
-TODO: replace details in this script with actual small data
-
-### 4. Connect to your Vertica database
-
-Connection parameters:
-Default DB Name - docker
-Default User - dbadmin
-Default Password (NO PASSWORD) -
-
-### 5. Ingest data
+### 4. Lobste.rs data
 - hava a sql file with create table statements
 - commit a small example data file to repository
 - put larger csv file on s3 
 
-### 6. Download Timeseries data
+### Generating data
+- for more advanced users
+
+### 5. Download Timeseries data
 To demonstrate the `TIMESLICE` facility of Vertica, we will use a dataset of GPS locations of Mallard ducks over a several month period in the UK. 
 
 To download, change into your preferred directory and run: 
@@ -84,10 +88,3 @@ You can also download the data directly by pasting the above S3 link into your b
 
 <small>Data from Kleyheeg E, van Dijk JGB, Tsopoglou-Gkina D, Woud TY, Boonstra DK, Nolet BA, Soons MB (2017) Movement patterns of a keystone waterbird species are highly predictable from landscape configuration. Movement Ecology 5(2). doi:10.1186/s40462-016-0092-7 </small>
 
-### Generating data
-- for more advanced users
-
-
-
-# Running a query
-- add sample queries

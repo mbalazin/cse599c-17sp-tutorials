@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import vertica_python as vp
 
 args = {
@@ -15,30 +17,29 @@ args = {
     # connection timeout is not enabled by default
     'connection_timeout': 5
 }
-# TODO: replace these placeholders with sample data
-table_cmd = """
-CREATE TABLE placeholder_table
-(
-    column1 INTEGER NOT NULL,
-    column2 INTEGER NOT NULL,
-    column3 INTEGER NOT NULL,
-    column4 INTEGER NOT NULL,
-    column5 VARCHAR(15) NOT NULL,
-);
-"""
-ingest_cmd = "COPY placeholder_table from stdin DELIMITER ','"
-ingest_path = "placeholder.csv"
 
 with vp.connect(**args) as conn:
     cur = conn.cursor()
+
     # Create the table
-    cur.execute(table_cmd)
+    cur.execute("""
+    CREATE TABLE sample_table
+    (
+        column1 INTEGER NOT NULL,
+        column3 INTEGER NOT NULL,
+        column5 VARCHAR(10) NOT NULL
+    );
+    """)
+
     # Ingest the data
-    with open(ingest_path) as f:
-        cur.copy(ingest_cmd, f)
+    with open("sample_data.csv") as f:
+        cur.copy("COPY sample_table from stdin DELIMITER ','", f)
+    
     # Execute some query
-    cur.execute("select count(*) from paceholder_table")
+    cur.execute("select * from sample_table")
+    
     # Print the results
-    print cur.fetchall()
+    print(cur.fetchall())
+    
     cur.close()
 
