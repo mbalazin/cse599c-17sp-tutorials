@@ -23,7 +23,7 @@ with vp.connect(**args) as conn:
 
     # Create the table
     cur.execute("""
-    CREATE TABLE sample_table
+    CREATE TABLE IF NOT EXISTS sample_table
     (
         column1 INTEGER NOT NULL,
         column3 INTEGER NOT NULL,
@@ -32,7 +32,7 @@ with vp.connect(**args) as conn:
     """)
 
     # Ingest the data
-    with open("sample_data.csv") as f:
+    with open("sample_data.csv", "rb") as f:
         cur.copy("COPY sample_table from stdin DELIMITER ','", f)
     
     # Execute some query
