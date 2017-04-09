@@ -22,7 +22,7 @@ steps should suffice.
 `docker pull sumitchawla/vertica`
 
 #### Run the container:
-`docker run -p 5433:5433 sumitchawla/vertica`
+`docker run -d -p 5433:5433 sumitchawla/vertica`
 
 #### Connection parameters:
 - Default DB Name: docker
