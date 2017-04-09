@@ -29,7 +29,7 @@ There are several different clients available to comminucate with a Vertica data
 that should now be running on your computer on port 5433.
 
 #### Interactive shell: `vsql`
-The vsql client is almost identical to the psql client for Postgres. [Go here](https://my.vertica.com/download/vertica/client-drivers/) to download the vsql client appropriate to your system. On OSX the download package will contain a binary `vsql` --- copy it into your working directory (preferably this one) and try to run it with `./vsql`. 
+The vsql client is almost identical to the psql client for Postgres. [Go here](https://my.vertica.com/download/vertica/client-drivers/) to download the vsql client appropriate to your system. If you are using the Docker image from above, download client drivers version 7.1.x. On OSX the download package will contain a binary `vsql` --- copy it into your working directory (preferably this one) and try to run it with `./vsql`. 
 
 To connect to a running Vertica database (like the one you've installed above), be sure that the database is running and connect with 
 ```
