@@ -74,15 +74,14 @@ You can then execute queries interactively. Try querying the table you ingested 
 select * from sample_table;
 ```
 
-### 4. Lobste.rs data
-- hava a sql file with create table statements
-- commit a small example data file to repository
-- put larger csv file on s3 
+### 4. Download some data
+During the in-class tutorial we will be using a couple of datasets to demonstrate Vertica.
 
-### Generating data
-- for more advanced users
+#### Lobste.rs data
+We will be using a generated dataset for the website http://lobste.rs. We will go through
+the steps needed to generate this dataset in class on Wednesday.
 
-### 5. Download Timeseries data
+#### Timeseries data
 To demonstrate the `TIMESLICE` facility of Vertica, we will use a dataset of GPS locations of Mallard ducks over a several month period in the UK. 
 
 To download, change into your preferred directory and run: 
