@@ -24,6 +24,12 @@ steps should suffice.
 #### Run the container:
 `docker run -d -p 5433:5433 sumitchawla/vertica`
 
+You can check the status of running containers by issuing:
+```
+docker ps
+```
+You should see that your Vertica container is now running.
+
 #### Connection parameters:
 - Default DB Name: docker
 - Default User: dbadmin
@@ -58,9 +64,10 @@ source .env/bin/activate
 ```
 
 ##### Making sure everything works
-Basic usage of the Python client is demonstrated in `sample.py`. 
-Try running this script to make sure everything works. We will go through each of
-the steps -- with more exciting examples -- in the class tutorial.
+Basic usage of the Python client is demonstrated in `sample.py`.  Try running
+this script to make sure everything works. Compare the output of the script
+with the `sample_data.csv` file.  We will go through each of the steps -- with
+more exciting examples -- in the class tutorial.
 
 #### Interactive shell: `vsql`
 The vsql client is almost identical to the psql client for Postgres. [Go here](https://my.vertica.com/download/vertica/client-drivers/) to download the vsql client appropriate to your system. If you are using the Docker image from above, download client drivers version 7.1.x. On OSX the download package will contain a binary `vsql` --- copy it into your working directory (preferably this one) and try to run it with `./vsql`. 
