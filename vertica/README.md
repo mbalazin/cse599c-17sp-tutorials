@@ -19,15 +19,20 @@ The full installation instructions can be found by following the link, but the f
 steps should suffice.
 
 #### Retrieve the image:
-`docker pull sumitchawla/vertica`
+```
+docker pull sumitchawla/vertica
+```
 
 #### Run the container:
-`docker run -d -p 5433:5433 sumitchawla/vertica`
+```
+docker run -d -p 5433:5433 sumitchawla/vertica
+```
 
 You can check the status of running containers by issuing:
 ```
 docker ps
 ```
+
 You should see that your Vertica container is now running.
 
 #### Connection parameters:
