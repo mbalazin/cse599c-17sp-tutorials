@@ -1,0 +1,11 @@
+{
+    "host": "127.0.0.1",
+    "port": 5433,
+    "user": "dbadmin",
+    "password": "",
+    "database": "docker",
+    "read_timeout": 600,
+    "unicode_error": "strict",
+    "ssl": false,
+    "connection_timeout": 5
+}

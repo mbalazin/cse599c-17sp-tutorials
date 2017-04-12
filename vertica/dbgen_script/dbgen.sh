@@ -4,15 +4,16 @@ num_messages=100
 num_stories=200
 num_comments=400
 
+D="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "generating tags..."
-python gen_tags.py &> tags.csv
+python $D/gen_tags.py &> tags.csv
 
 echo "generating stories..."
-python gen_stories.py $num_users $num_stories &> stories.csv
+python $D/gen_stories.py $num_users $num_stories &> stories.csv
 
 echo "generating comments..."
-python gen_comments.py $num_users $num_stories $num_comments &> comments.csv
+python $D/gen_comments.py $num_users $num_stories $num_comments &> comments.csv
 
 echo "generating messages..."
-python gen_messages.py $num_messages $num_users &> messages.csv
+python $D/gen_messages.py $num_messages $num_users &> messages.csv
 
