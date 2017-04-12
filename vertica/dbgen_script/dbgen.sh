@@ -1,7 +1,7 @@
 #!/bin/bash
 num_users=474
 num_messages=100
-num_stories=200
+num_stories=4000
 num_comments=400
 
 D="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
