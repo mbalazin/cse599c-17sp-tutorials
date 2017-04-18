@@ -7,10 +7,9 @@ setup very easy, and the free tier is enough to explore Spark functionality.
 
   1. **Before class** please create a [Databricks Community Edition](https://accounts.cloud.databricks.com/registration.html#signup/community) account.  [This](https://databricks.com/product/getting-started-guide) 3 min video provides a quick overview of Databricks and how to setup up a cluster and notebook.
   2. Databricks makes it easy to create a basic free cluster (6GB of RAM). On the left panel click the *Clusters* icon and then the *Create Cluster* button. Follow the prompts to create a cluster.  In free mode, clusters will become deactivate after 2h of inactivity.
-  3. Upload *spark_tutorial_inclass.ipynb*
-      1. On the left panel, click the *Workspace* icon to open up Workplace Explore.
-      2. Click on the down arrow next to Workspace at the top of the panel.
-      3. Click on Import, and in the popup dialog, drag *spark_tutorial_inclass.ipynb*
+  3. Import our *Spark Tutorial Notebook*.
+      1. Open up [this](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430741/653376218961520/latest.html) tutorial in a new tab.
+      2. Import it into your own Databricks workspace.
   4. Your notebook should open up but is not attached to a cluster.  In the top left,
      where it says *Detached*, click on the menu dropdown and select the cluster
      you created earlier. (If no cluster is there, you can create one from the dropdown).
@@ -38,14 +37,14 @@ setup very easy, and the free tier is enough to explore Spark functionality.
 
   The spark ML example will use two datasets already in the */databricks-datasets/* file system.
 
-  To start the ML example, import the *spark_ml_inclass.ipynb* file up to your Databricks instance.
+  To start the ML example, import the [Spark ML Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430889/653376218961520/latest.html) into your Databricks instance.
 
 ## 4. Graph processing (GraphX).
 
   In the graph processing Spark tutorial, we will explore more builten features of Spark (as provided by Databricks). This section uses the same datasets from the ML example.
 
-  To start the GraphX example, import the *spark_graph_inclass.ipynb* file to your Databricks instance.
+  To start the GraphX example, import the [Spark GraphX Notebook]() into your Databricks instance.
 
 ## 5. Streaming
 
-  To start the streaming example, import the *spark_streaming_inclass.ipynb* file to your Databricks instance.
+  To start the streaming example, import the [Spark Streaming Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430814/653376218961520/latest.html) into your Databricks instance.
