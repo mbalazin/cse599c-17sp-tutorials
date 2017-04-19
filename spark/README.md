@@ -36,6 +36,11 @@ setup very easy, and the free tier is enough to explore Spark functionality.
       4. Upload the *mallard.csv* file.
           1. **Important:** once the file is uploaded, a file path such as */FileStore/tables/s3siau3s1492133966611/mallard.csv* will appear under it. Copy this file path into the *mallardFilePath* variable in your notebook.
 
+  Documentation for the pyspark moduals used in this section can be found here:
+      1. [RDD API](http://spark.apache.org/docs/2.1.0/api/python/pyspark.html#pyspark.RDD)
+      1. [DataFrame API](http://spark.apache.org/docs/2.1.0/api/python/pyspark.sql.html#pyspark.sql.DataFrame)
+      1. [SQL Functions](http://spark.apache.org/docs/2.1.0/api/python/pyspark.sql.html#module-pyspark.sql.functions)
+
 ## 3. Spark ML Example
 
   The spark ML example will use two datasets already in the */databricks-datasets/* file system.
