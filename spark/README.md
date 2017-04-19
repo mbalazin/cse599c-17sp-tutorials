@@ -47,4 +47,4 @@ setup very easy, and the free tier is enough to explore Spark functionality.
 
 ## 5. Streaming
 
-  To start the streaming example, import the [Spark Streaming Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430814/653376218961520/latest.html) into your Databricks instance.
+  To start the streaming example, import the [Spark Streaming Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430856/653376218961520/latest.html) into your Databricks instance.
