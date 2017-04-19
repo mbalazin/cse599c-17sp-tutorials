@@ -10,6 +10,7 @@ setup very easy, and the free tier is enough to explore Spark functionality.
   3. Import our *Spark Tutorial Notebook*.
       1. Copy our spark_tutorial URL found
       [here](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430741/653376218961520/latest.html).
+      A completed version of this tutorial can can be found in the *spark_tutorial.ipynb* file in this repository.
       1. Click on Workspaces on the left to open up your file explore.
       1. Click on the down arrow next to Workspaces at the top of the column and select Import.
       1. Select the URL radio button and past in the URL.
@@ -39,7 +40,11 @@ setup very easy, and the free tier is enough to explore Spark functionality.
 
   The spark ML example will use two datasets already in the */databricks-datasets/* file system.
 
-  To start the ML example, import the [Spark ML Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430889/653376218961520/latest.html) into your Databricks instance.
+  To start the ML example, import the
+  [Spark ML Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430889/653376218961520/latest.html)
+  into your Databricks instance.
+
+  A full completed version of this example can be found in the *spark_ml.ipynb* file in this repository.
 
 ## 4. Graph processing (GraphX).
 
@@ -49,9 +54,15 @@ setup very easy, and the free tier is enough to explore Spark functionality.
   [Spark GraphX Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430954/653376218961520/latest.html)
   into your Databricks instance. You can use
   [GraphFrames documentation](https://graphframes.github.io/api/python/graphframes.html#subpackages)
-  for programming in python and expand this notebook. If you want to just use scala then use this 
+  for programming in python and expand this notebook. If you want to just use scala then use this
   [GraphX documentation](http://spark.apache.org/docs/latest/graphx-programming-guide.html).
+
+  A full completed version of this example can be found in the *spark_graphx.ipynb* file in this repository.
 
 ## 5. Streaming
 
-  To start the streaming example, import the [Spark Streaming Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430856/653376218961520/latest.html) into your Databricks instance.
+  To start the streaming example, import the
+  [Spark Streaming Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430856/653376218961520/latest.html)
+  into your Databricks instance.
+
+  A full completed version of this example can be found in the *spark_streaming.ipynb* file in this repository.
