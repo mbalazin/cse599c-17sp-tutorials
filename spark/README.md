@@ -43,7 +43,7 @@ setup very easy, and the free tier is enough to explore Spark functionality.
 
   In the graph processing Spark tutorial, we will explore more builten features of Spark (as provided by Databricks). This section uses the same datasets from the ML example.
 
-  To start the GraphX example, import the [Spark GraphX Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430915/653376218961520/latest.html) into your Databricks instance. You can use [GraphFrames documentation](https://graphframes.github.io/api/python/graphframes.html#subpackages) for programming in python and expand this notebook. If you want to just use scala then use this [GraphX documentation](http://spark.apache.org/docs/latest/graphx-programming-guide.html).
+  To start the GraphX example, import the [Spark GraphX Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430954/653376218961520/latest.html) into your Databricks instance. You can use [GraphFrames documentation](https://graphframes.github.io/api/python/graphframes.html#subpackages) for programming in python and expand this notebook. If you want to just use scala then use this [GraphX documentation](http://spark.apache.org/docs/latest/graphx-programming-guide.html).
 
 ## 5. Streaming
 
