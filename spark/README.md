@@ -10,7 +10,9 @@ setup very easy, and the free tier is enough to explore Spark functionality.
   3. Import our *Spark Tutorial Notebook*.
       1. Copy our spark_tutorial URL found
       [here](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430741/653376218961520/latest.html).
-      A completed version of this tutorial can can be found in the *spark_tutorial.ipynb* file in this repository.
+      A completed version of this tutorial can can be found in the *1_spark_tutorial.ipynb* file in this repository
+      or find the python source
+      [here](https://github.com/mbalazin/cse599c-17sp-tutorials/blob/master/spark/py_src/1_spark_tutorial.py).
       1. Click on Workspaces on the left to open up your file explore.
       1. Click on the down arrow next to Workspaces at the top of the column and select Import.
       1. Select the URL radio button and past in the URL.
@@ -49,7 +51,9 @@ setup very easy, and the free tier is enough to explore Spark functionality.
   [Spark ML Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430889/653376218961520/latest.html)
   into your Databricks instance.
 
-  A full completed version of this example can be found in the *spark_ml.ipynb* file in this repository.
+  A full completed version of this example can be found in the *2_spark_ml.ipynb* file in this repository.
+  Or find the python source
+  [here](https://github.com/mbalazin/cse599c-17sp-tutorials/blob/master/spark/py_src/2_spark_ml.py).
 
 ## 4. Graph processing (GraphX).
 
@@ -62,7 +66,9 @@ setup very easy, and the free tier is enough to explore Spark functionality.
   for programming in python and expand this notebook. If you want to just use scala then use this
   [GraphX documentation](http://spark.apache.org/docs/latest/graphx-programming-guide.html).
 
-  A full completed version of this example can be found in the *spark_graphx.ipynb* file in this repository.
+  A full completed version of this example can be found in the *3_spark_graphx.ipynb* file in this repository.
+  Or find the python source
+  [here](https://github.com/mbalazin/cse599c-17sp-tutorials/blob/master/spark/py_src/3_spark_graphx.py).
 
 ## 5. Streaming
 
@@ -70,4 +76,6 @@ setup very easy, and the free tier is enough to explore Spark functionality.
   [Spark Streaming Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430856/653376218961520/latest.html)
   into your Databricks instance.
 
-  A full completed version of this example can be found in the *spark_streaming.ipynb* file in this repository.
+  A full completed version of this example can be found in the *4_spark_streaming.ipynb* file in this repository.
+  Or find the python source
+  [here](https://github.com/mbalazin/cse599c-17sp-tutorials/blob/master/spark/py_src/4_spark_streaming.py).
