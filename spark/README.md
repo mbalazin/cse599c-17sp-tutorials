@@ -58,6 +58,17 @@ setup very easy, and the free tier is enough to explore Spark functionality.
 ## 4. Graph processing (GraphX).
 
   In the graph processing Spark tutorial, we will explore more built-in features of Spark (as provided by Databricks). This section uses the same datasets from the ML example.
+  
+  First, we need to import GraphFrame library. To do that, follow following steps:
+      1. Go to home screen of [community databricks](https://community.cloud.databricks.com) 
+      2. Click on "Library" link in the "New" section of home page.
+      3. Select "Maven Coordinate" as the source on the create library page.
+      4. Click on "Search Spark Packages and Maven Central" button.
+      5. A pop-up box will open. Wait for it to load the list of available packages.
+      6. Search for "graphframes" once the list is loaded.
+      7. Select "0.4.0-spark2.1-s_2.10" from Releases dropbox. Remember that the last three digits represent the version of spark you are running on your cluster. Make sure it matches with what version you are running. You can look for it on "Clusters" page (link in left panel) under active clusters.
+      8. Click on "+ Select" to select the package.
+      9. Click on "Create Library" to add it your cluster.
 
   To start the GraphX example, import the
   [Spark GraphX Notebook](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/371142130727624/2056133347430954/653376218961520/latest.html)
