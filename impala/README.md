@@ -1,4 +1,4 @@
-##Impala Tutorial
+## Impala Tutorial
 
 We will be using the following tools to facilitate our tutorials:
 1. [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads)
@@ -16,14 +16,17 @@ We will be using the following tools to facilitate our tutorials:
 
 **Installing client environment on the host machine**
 We will be interacting with Impala databases on our host machine. The Python library that needs to be installed is **[Impyla](https://github.com/cloudera/impyla)** 
+
 * Run the following command: 
-'''
+
+```
 pip install impyla
-'''
+```
 * To use the host machine completely as native sql queries run the following command:
-'''
+
+```
 pip install git+https://github.com/LucaCanali/ipython-sql.git
-'''
+```
 
 
 
