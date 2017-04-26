@@ -1,0 +1,19 @@
+create external table mallard (
+event_id BIGINT,
+time TIMESTAMP, 
+location_long FLOAT, 
+location_lat FLOAT 
+)
+row format delimited fields terminated by ','
+location /user/hive/warehouse/mallard;
+
+create table mallard_parquet like mallard stored as parquet;
+insert overwrite table mallard_parquet select * from mallard;
+create table mallard_rcfile like mallard stored as rcfile;
+insert overwrite table mallard_rcfile select * from mallard;
+create table mallard_sequence like mallard stored as sequencefile;
+insert overwrite table mallard_sequence select * from mallard;
+
+
+load data inpath '/user/hive/warehouse/mallard' overwrite into table mallard;
+
