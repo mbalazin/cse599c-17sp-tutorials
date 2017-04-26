@@ -1,0 +1,77 @@
+
+SHOW TABLE STATS mallard;
+SHOW TABLE STATS mallard_parquet;
+
+CREATE EXTERNAL TABLE superstore
+(
+rowid INT,
+orderid INT,
+orderdate STRING,
+orderpriority STRING,
+orderquantity INT,
+sales FLOAT,
+discout FLOAT,
+shipmode STRING,
+profit FLOAT,
+unitprice FLOAT,
+shippingcost FLOAT,
+customername STRING,
+city STRING,
+zipcode INT,
+state STRING,
+region STRING,
+customersegment STRING,
+productcategory STRING,
+productsubcategory STRING,
+productname STRING,
+productcontainer STRING,
+productbasemargin FLOAT,
+shipdate STRING,
+shipdate2 STRING                                             
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+LOCATION '/user/hive/warehouse/superstore';
+
+ALTER TABLE superstore SET tblproperties ('skip.header.line.count'='1');
+
+CREATE TABLE superstore_parquet
+(
+rowid INT,
+orderid INT,
+orderdate STRING,
+orderpriority STRING,
+orderquantity INT,
+sales FLOAT,
+discout FLOAT,
+shipmode STRING,
+profit FLOAT,
+unitprice FLOAT,
+shippingcost FLOAT,
+customername STRING,
+city STRING,
+zipcode INT,
+region STRING,
+customersegment STRING,
+productcategory STRING,
+productsubcategory STRING,
+productname STRING,
+productcontainer STRING,
+productbasemargin FLOAT,
+shipdate STRING,
+shipdate2 STRING                                             
+)               
+PARTITIONED BY(state STRING) STORED as PARQUET;
+
+
+
+INSERT OVERWRITE TABLE superstore_parquet partition(State) SELECT rowid,orderid,orderdate,orderpriority,orderquantity,sales,discout,shipmode,profit,unitprice,shippingcost,customername,city,zipcode,region,customersegment,productcategory,productsubcategory,productname,productcontainer,productbasemargin,shipdate,shipdate2,state FROM superstore;
+
+SHOW TABLE STATS superstore;
+SHOW TABLE STATS siperstore_parquet;
+
+SELECT productname FROM superstore WHERE state="Washington";
+SELECT productname FROM superstore_parquet WHERE state="Washington";
+
+EXPLAIN;
+PROFILE;
+
