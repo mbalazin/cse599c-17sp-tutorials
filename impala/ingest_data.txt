@@ -5,15 +5,43 @@ location_long FLOAT,
 location_lat FLOAT 
 )
 row format delimited fields terminated by ','
-location /user/hive/warehouse/mallard;
+location '/user/hive/warehouse/tutorial/mallard';
 
 create table mallard_parquet like mallard stored as parquet;
 insert overwrite table mallard_parquet select * from mallard;
+
 create table mallard_rcfile like mallard stored as rcfile;
 insert overwrite table mallard_rcfile select * from mallard;
+
 create table mallard_sequence like mallard stored as sequencefile;
 insert overwrite table mallard_sequence select * from mallard;
 
 
-load data inpath '/user/hive/warehouse/mallard' overwrite into table mallard;
+load data inpath '/user/hive/warehouse/tutorial/mallard' overwrite into table mallard;
 
+create table mallard_avro(
+    event_id BIGINT,
+    time STRING, 
+    location_longitude FLOAT, 
+    location_lat FLOAT
+    )
+    stored as avro;
+
+    CREATE TABLE mallard_avro
+    (event_id BIGINT, time STRING, location_longitude FLOAT, location_lat FLOAT)
+    STORED AS AVRO
+    TBLPROPERTIES ('avro.schema.literal'='{
+    "name": "mallard_avro",
+    "type": "record",
+    "fields": [
+    {"name":"event_id", "type":"bigint"},
+    {"name":"time", "type":"string"},
+    {"name":"location_longitude", "type":"float"},
+    {"name":"location_lat", "type":"float"}]}');
+
+--Commands to access HDFS:
+hdfs dfs -mkdir -p /user/hive/warehouse/tutorial/mallard
+hdfs dfs -put mallard.csv /user/hive/warehouse/tutorial/mallard
+hdfs dfs -ls /user/hive/warehouse/tutorial/mallard
+--to give read_write access
+hdfs dfs -chmod -R 777 /user/hive/warehouse/tutorial
