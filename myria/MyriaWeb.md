@@ -75,66 +75,65 @@ This program, for example,
 T = scan(TwitterK);
 ```
 
-results in the following error message
+results in the following error message:
 
 `MyrialCompileException: Optimized program is empty`
 
 
-MyriaL provides the `SINK` command to get around this. We often find `SINK` useful when benchmarking Myria's performance. The following program scans `TwitterK` from disk into memory and then throws the relation away.
+MyriaL provides the `sink` command to get around this. We often find `sink` useful when benchmarking Myria's performance. The following program scans `TwitterK` from disk into memory and then throws the relation away.
 
 ```sql
-T = SCAN(TwitterK);
-SINK(T);
+T = scan(TwitterK);
+sink(T);
 ```
 
-## Transforming Data
+## 2. Transforming Data
 
-Now for some real queries! MyriaL has two styles of syntax: SQL and comprehensions. If you've used [list comprehensions in python](https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions) then MyriaL's comprehensions will look familiar. Use the style you prefer or mix and match.
+Now for some real queries! MyriaL has two styles of syntax: **SQL** and **comprehensions**. If you've used [list comprehensions in python](https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions) then MyriaL's comprehensions will look familiar. Use the style you prefer or mix and match.
 
-You can try all the examples in this section yourself by copy/pasting them into [Myria demo](http://demo.myria.cs.washington.edu/).
+You can try all the examples in this section yourself by copy/pasting them into your allotted demo cluster. 
 
 
-### Select, from, where
+### select, from, where
 
 Let's find the twitter relationships where the follower and followee are the same user.
 
 ```sql
 T = scan(TwitterK);
 -- SQL style syntax
-s = select * from T where a = b;
+s = select * from T where src = dst;
 store(s, selfloops);
 ```
 
 ```sql
 T = scan(TwitterK);
 -- comprehension syntax
-s = [from T where a = b emit *];
+s = [from T where src = dst emit *];
 store(s, selfloops);
 ```
 
-`from T` means read tuples from relation T. `where a = b` means only keep tuples where the value of a is equal to the value of b. The `*` in `emit *` means the resulting relation should contain *all* the attributes from the relations in the `from` clause (in this case, the attributes of `T`: `a` and `b`).
+`from T` means read tuples from relation T. `where src = dst` means only keep tuples where the value of `src` is equal to the value of `dst`. The `*` in `emit *` means the resulting relation should contain *all* the attributes from the relations in the `from` clause (in this case, the attributes of `T`: `src` and `dst`).
 
-### Join
+### join
 
 Joins let us match two relations on 1 or more attributes. This query finds all the friend-of-friend relationships in TwitterK.
 
 ```sql
-T1 = SCAN(TwitterK);
-T2 = SCAN(TwitterK);
-Joined = select T1.a, T1.b, T2.b
-              from T1, T2
-              where T1.b = T2.a;
-STORE(Joined, TwoHopsInTwitter);
+T1 = scan(TwitterK);
+T2 = scan(TwitterK);
+joined = select T1.src as src, T1.dst as link, T2.dst as dst
+         from T1, T2
+         where T1.dst = T2.src;
+store(joined, TwoHopsInTwitter);
 ```
 
 ```sql
-T1 = SCAN(TwitterK);
-T2 = SCAN(TwitterK);
-Joined = [FROM T1, T2
-          WHERE T1.b = T2.a
-          EMIT T1.a AS src, T1.b AS link, T2.b AS dst];
-
-STORE(Joined, TwoHopsInTwitter);
+T1 = scan(TwitterK);
+T2 = scan(TwitterK);
+joined = [from T1, T2
+          where T1.dst = T2.src
+          emit T1.src AS src, T1.dst AS link, T2.dst AS dst];     
+store(Joined, TwoHopsInTwitter);
 ```
 
 ### Aggregation
