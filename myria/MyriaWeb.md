@@ -94,7 +94,7 @@ Now for some real queries! MyriaL has two styles of syntax: **SQL** and **compre
 You can try all the examples in this section yourself by copy/pasting them into your allotted demo cluster. 
 
 
-### select, from, where
+### 2.1. select, from, where
 
 Let's find the twitter relationships where the follower and followee are the same user.
 
@@ -142,13 +142,13 @@ Aggregation lets us combine results from multiple tuples. This query counts the 
 
 ```sql
 T = scan(TwitterK);
-cnt = select COUNT(*) from T where a=821;
+cnt = select count(*) from T where src=821;
 store(cnt, user821);
 ```
 
 ```sql
 T1 = scan(TwitterK);
-cnt = [from T1 where a=821 emit COUNT(*) as x];
+cnt = [from T1 where a=821 emit count(*) as x];
 store(cnt, user821);
 ```
 
@@ -156,20 +156,20 @@ We can also group the aggregation by attributes. This query counts the number of
 
 ```sql
 T = scan(TwitterK);
-cnt = select a, COUNT(*) from T;
-store(cnt, degrees);
+T1 = select src as user, count(*) as degree from T group by src;
+store(T1, user_degrees);
 ```
 
 ```sql
-T1 = scan(TwitterK);
-cnt = [from T1 emit a, COUNT(*) as x];
-store(cnt, degrees);
+T = scan(TwitterK);
+T1 = [from T emit src as user, count(*) as degree];
+store(T1, user_degrees);
 ```
 
 Notice that MyriaL's syntax differs from SQL for group by. MyriaL groups by all attributes in the select clause without using a group by clause. For clarity, the equivalent SQL query is:
 
 ```sql
-select a, COUNT(*) from T group by a;
+select src as user, count(*) as degree from T group by src;
 ```
 
 
