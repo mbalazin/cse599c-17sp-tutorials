@@ -217,24 +217,19 @@ MyriaL supports Do-While loops. The loop can be terminated on a condition about 
 Find the vertices reachable from user 821.
 
 ```sql
-Edge = scan(TwitterK);
+edges = scan(TwitterK);
 -- special syntax for a scalar constant in MyriaL.
-Source = [821 AS addr];
-Reachable = Source;
-Delta = Source;
-
-DO
-    -- join to follow the horizon
-    NewlyReachable = DISTINCT([FROM Delta, Edge
-                              WHERE Delta.addr == Edge.src
-                              EMIT Edge.dst AS addr]);
-    -- which users are discovered for the first time?
-    Delta = DIFF(NewlyReachable, Reachable);
-    -- add them to our set of reachable users
-    Reachable = UNIONALL(Delta, Reachable);
-WHILE [FROM COUNTALL(Delta) AS size EMIT *size > 0];
-
-STORE(Reachable, OUTPUT);
+source = [821 AS addr];
+reachable = source;
+delta = source;
+do
+    new_reachable = distinct([from delta, edges
+                              where delta.addr == edges.src
+                              emit edges.dst as addr]);
+    delta = diff(new_reachable, reachable);
+    reachable = new_reachable + delta
+while ([from delta emit count(*)] > 0);
+store(reachable, Reachable);
 ```
 
 The condition should be a relation with one tuple with one boolean attribute.
