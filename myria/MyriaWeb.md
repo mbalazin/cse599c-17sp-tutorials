@@ -281,30 +281,37 @@ source = [2 AS addr];
 reachable = source;
 delta = source;
 do
-	before_size = select count(*) as A from reachable;
-    new_reachable = select edges.dst as addr
-    				from delta, edges
-                    where delta.addr = edges.src;
-    reachable = new_reachable + delta;
-    after_size = select count(*) as B from reachable;
-while [from before_size, after_size emit B - A > 0];
+    before_size = select count(*) as B
+                  from reachable;
+    reachable = select edges.dst as addr
+    		from reachable, edges
+                where reachable.addr = edges.src;
+    after_size = select count(*) as A 
+    		 from reachable;
+while [from before_size, after_size emit A - B > 0];
 store(reachable, Reachable);
 ```
 
 *Find the connected components in twitter dataset*
 ```sql
 edges = scan(TwitterK);
-vertices = select distinct src as nid from edges;
-con_comp = [from vertices emit nid, nid as cid];
+con_comp = select src as nid, src as cid
+	   from edges;
 do
-  before_size = select count(*) as A from con_comp;
-  new_con_comp = [from edges, con_comp where edges.src = con_comp.nid emit edges.dst, con_comp.cid];
+  before_size = select count(*) as B
+  		from con_comp;
+
+  new_con_comp = select edges.dst as nid, con_comp.cid as cid
+  		 from edges, con_comp
+                 where edges.src = con_comp.nid;
   new_con_comp = new_con_comp + con_comp;
-  new_con_comp = [from new_con_comp emit nid, min(cid)];
+  new_con_comp = select nid, min(cid) as cid
+  		 from new_con_comp;
   con_comp = new_con_comp;
-  after_size = select count(*) as B from con_comp;
-while [from before_size, after_size emit B - A > 0];
-comp_count = [from con_comp emit cid as id, count(nid) as cnt];
+  after_size = select count(*) as A
+  			   from con_comp;
+while [from before_size, after_size emit A - B > 0];
+comp_count = [from con_comp emit cid as id, count(*) as cnt];
 store(comp_count, TwitterCC);
 ```
 The condition should be a relation with one tuple with one boolean attribute.
