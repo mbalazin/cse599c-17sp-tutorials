@@ -210,31 +210,8 @@ store(onlyleft, onlyAsSource);
 ```
 Also, notice how the query plans for the union, distinct operation is different from that of just diff!
 
-## 4. Loops
 
-MyriaL supports Do-While loops. The loop can be terminated on a condition about the data, so you can write iterative programs.
-
-Find the vertices reachable from user 2.
-
-```sql
-edges = scan(TwitterK);
--- special syntax for a scalar constant in MyriaL.
-source = [821 AS addr];
-reachable = source;
-delta = source;
-do
-    new_reachable = distinct([from delta, edges
-                              where delta.addr == edges.src
-                              emit edges.dst as addr]);
-    delta = diff(new_reachable, reachable);
-    reachable = new_reachable + delta
-while [from delta emit count(*) > 0];
-store(reachable, Reachable);
-```
-
-The condition should be a relation with one tuple with one boolean attribute.
-
-### 5. User-defined functions
+### 4. User-defined functions
 
 MyriaL supports writing User-defined Functions (UDFs) and User-defined Aggregates (UDAs) in the MyriaL syntax.
 *Next: Python UDFs!!*.
@@ -274,7 +251,7 @@ T1 = [from cnt emit ArgMax(v, degree)];
 STORE(T1, max_degree);
 ```
 
-### 6. Stateful Apply
+### 5. Stateful Apply
 
 Stateful apply provides a way to define functions that keep mutable state.
 
@@ -293,6 +270,45 @@ STORE (T2, identified);
 
 To do a distributed counter, Myria has coordination operators like broadcast and collect, but these are not currently exposed in MyriaL.
 
+## 6. Synchronous iterations
+
+MyriaL supports Do-While loops. The loop can be terminated on a condition about the data, so you can write iterative programs.
+
+Find the vertices reachable from user 2.
+
+```sql
+edges = scan(TwitterK);
+-- special syntax for a scalar constant in MyriaL.
+source = [2 AS addr];
+reachable = source;
+delta = source;
+do
+    new_reachable = select edges.dst as addr
+    				from delta, edges
+                    where delta.addr = edges.src;
+    delta = diff(new_reachable, reachable);
+    reachable = new_reachable + delta;
+while [from delta emit count(*) > 0];
+store(reachable, Reachable);
+```
+The condition should be a relation with one tuple with one boolean attribute.
+
+## 7. Asynchronous iterations
+
+The following code computes the connected components in the twitter dataset
+
+```sql
+E = load("s3://uwdb/sampleData/TwitterK.csv", csv(schema(src:int, dst:int)));
+V = [from E emit src as x] + [from E emit dst as x];
+V = select distinct x from V;
+do
+  CC = [nid, MIN(cid) as cid] <-
+    [from V emit V.x as nid, V.x as cid] +
+    [from E, CC where E.src = CC.nid emit E.dst as nid, CC.cid];
+until convergence async pull_idb;
+store(CC, CC_output);
+```
+
 ### Types
 
 MyriaL supports a number of types for attributes (and expressions) and performs type checking.
@@ -309,17 +325,7 @@ MyriaL supports a number of types for attributes (and expressions) and performs 
 
 The Myria Catalog is case sensitive, so please make sure to Scan the correct relation name.
 
-```sql
-E = load("s3://uwdb/sampleData/TwitterK.csv", csv(schema(src:int, dst:int)));
-V = [from E emit src as x] + [from E emit dst as x];
-V = select distinct x from V;
-do
-  CC = [nid, MIN(cid) as cid] <-
-    [from V emit V.x as nid, V.x as cid] +
-    [from E, CC where E.src = CC.nid emit E.dst as nid, CC.cid];
-until convergence async pull_idb;
-store(CC, CC_output);
-```
+
 ## Advanced Examples
 
 * [PageRank in MyriaL](https://github.com/uwescience/raco/blob/master/examples/pagerank.myl)
