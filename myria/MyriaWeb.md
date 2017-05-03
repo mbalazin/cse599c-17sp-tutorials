@@ -152,6 +152,7 @@ cnt = [from T1 where src=821 emit count(*) as x];
 store(cnt, user821);
 ```
 
+### 2.4. group-by aggregates
 We can also group the aggregation by attributes. This query counts the number of friends for *each* user.
 
 ```sql
