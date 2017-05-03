@@ -14,7 +14,7 @@ Here, Myria will create a relation `T1` with the contents of `TwitterK.csv` and 
 Note that the `load` command can also handle TSV data:
 
 ```sql
-    T = load("s3://uwdb/sampleData/TwitterK.tsv", csv(schema(src:int, dst:int), skip=0, delimiter="\t"));
+    T = load("path/to/your/file.tsv", csv(schema(src:int, dst:int), skip=0, delimiter="\t"));
     store(T, TwitterK, [src, dst]);
 ```
 
