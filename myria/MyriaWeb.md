@@ -198,7 +198,7 @@ dups = left + right;
 vertices = select distinct vertex from dups;
 store(vertices, users);
 ```
-<span style="color:red">Note the query plan created by MyriaX for the above query! It computes `left` and `right` in parallel.</span>
+Note the query plan created by MyriaX for the above query! It computes `left` and `right` in parallel.
 
 Find the users that only appear as the source of an edge.
 ```sql
@@ -208,7 +208,7 @@ right = select dst as vertex from edges;
 onlyleft = diff(left, right);
 store(onlyleft, onlyAsSource);
 ```
-<span style="color:red">Also, notice how the query plans for the union, distinct operation is different from that of just diff!</span>
+Also, notice how the query plans for the union, distinct operation is different from that of just diff!
 
 ## Loops
 
