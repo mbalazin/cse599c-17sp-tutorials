@@ -271,12 +271,14 @@ To do a distributed counter, Myria has coordination operators like broadcast and
 
 ## 6. Synchronous iterations
 
-MyriaL supports `do...while` loops. The loop condition must be an expression that evaluates to a singleton relation with one boolean attribute ie. either `[true]` or `[false]`.
+MyriaL supports `do...while` loops. The loop condition must be an expression that evaluates to a singleton relation with one boolean attribute ie. either `[true]` or `[false]`. Here are a few examples:
 
-*Find the vertices reachable from user 2*
+### 6.1. Reachability test
+In this example, we will find the set of nodes that are reachable from a given node in the Twitter dataset. Note that there is a special syntax for a scalar constant in MyriaL. 
+
 ```sql
 edges = scan(TwitterK);
--- special syntax for a scalar constant in MyriaL.
+-- special syntax for scalar constants
 source = [2 AS addr];
 reachable = source;
 do
@@ -294,7 +296,9 @@ while [from before_size, after_size emit A - B > 0];
 store(reachable, Reachable);
 ```
 
-*Find the connected components in twitter dataset*
+### 6.2. Connected components
+Here is another example of a `do...while` loop used to find the connected components in the Twitter dataset.
+
 ```sql
 edges = scan(TwitterK);
 con_comp = select src as nid, src as cid
@@ -315,7 +319,6 @@ while [from before_size, after_size emit A - B > 0];
 comp_count = [from con_comp emit cid as id, count(*) as cnt];
 store(comp_count, TwitterCC);
 ```
-The condition should be a relation with one tuple with one boolean attribute.
 
 ## 7. Asynchronous iterations
 
