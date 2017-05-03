@@ -148,7 +148,7 @@ store(cnt, user821);
 
 ```sql
 T1 = scan(TwitterK);
-cnt = [from T1 where a=821 emit count(*) as x];
+cnt = [from T1 where src=821 emit count(*) as x];
 store(cnt, user821);
 ```
 
@@ -156,7 +156,7 @@ We can also group the aggregation by attributes. This query counts the number of
 
 ```sql
 T = scan(TwitterK);
-T1 = select src as user, count(*) as degree from T group by src;
+T1 = select src as user, count(*) as degree from T;
 store(T1, user_degrees);
 ```
 
