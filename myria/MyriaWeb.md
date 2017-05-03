@@ -213,15 +213,14 @@ Also, notice how the query plans for the union, distinct operation is different 
 
 ### 4. User-defined functions
 
-MyriaL supports writing User-defined Functions (UDFs) and User-defined Aggregates (UDAs) in the MyriaL syntax.
-*Next: Python UDFs!!*.
+MyriaL allows users to define two kinds of functions: UDF and UDA. A *user-defined function (UDF)* takes one or more parameters to produce an output.*
 
-User-defined function to calculate some f.
+User-defined function to calculate some foo.
 
 ```sql
-def mod(a, b): a - int(a/(b+1))*b;
-T1 = [from scan(TwitterK) as t emit mod(src, dst)];
-STORE(T1, udf_result);
+def foo(a, b): a - int(a/(b+1))*b;
+T1 = [from scan(TwitterK) as t emit foo(src, dst)];
+store(T1, udf_result);
 ```
 
 User-defined aggregate function to calculate an arg max. We'll use it to find the vertex with the largest degree.
@@ -274,8 +273,7 @@ To do a distributed counter, Myria has coordination operators like broadcast and
 
 MyriaL supports Do-While loops. The loop can be terminated on a condition about the data, so you can write iterative programs.
 
-Find the vertices reachable from user 2.
-
+*Find the vertices reachable from user 2*
 ```sql
 edges = scan(TwitterK);
 -- special syntax for a scalar constant in MyriaL.
@@ -283,13 +281,31 @@ source = [2 AS addr];
 reachable = source;
 delta = source;
 do
+	before_size = select count(*) as A from reachable;
     new_reachable = select edges.dst as addr
     				from delta, edges
                     where delta.addr = edges.src;
-    delta = diff(new_reachable, reachable);
     reachable = new_reachable + delta;
-while [from delta emit count(*) > 0];
+    after_size = select count(*) as B from reachable;
+while [from before_size, after_size emit B - A > 0];
 store(reachable, Reachable);
+```
+
+*Find the connected components in twitter dataset*
+```sql
+edges = scan(TwitterK);
+vertices = select distinct src as nid from edges;
+con_comp = [from vertices emit nid, nid as cid];
+do
+  before_size = select count(*) as A from con_comp;
+  new_con_comp = [from edges, con_comp where edges.src = con_comp.nid emit edges.dst, con_comp.cid];
+  new_con_comp = new_con_comp + con_comp;
+  new_con_comp = [from new_con_comp emit nid, min(cid)];
+  con_comp = new_con_comp;
+  after_size = select count(*) as B from con_comp;
+while [from before_size, after_size emit B - A > 0];
+comp_count = [from con_comp emit cid as id, count(nid) as cnt];
+store(comp_count, TwitterCC);
 ```
 The condition should be a relation with one tuple with one boolean attribute.
 
