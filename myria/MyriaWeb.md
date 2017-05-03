@@ -339,6 +339,17 @@ MyriaL supports a number of types for attributes (and expressions) and performs 
 
 The Myria Catalog is case sensitive, so please make sure to Scan the correct relation name.
 
+```sql
+E = load("s3://uwdb/sampleData/TwitterK.csv", csv(schema(src:int, dst:int)));
+V = [from E emit src as x] + [from E emit dst as x];
+V = select distinct x from V;
+do
+  CC = [nid, MIN(cid) as cid] <-
+    [from V emit V.x as nid, V.x as cid] +
+    [from E, CC where E.src = CC.nid emit E.dst as nid, CC.cid];
+until convergence async pull_idb;
+store(CC, CC_output);
+```
 ## Advanced Examples
 
 * [PageRank in MyriaL](https://github.com/uwescience/raco/blob/master/examples/pagerank.myl)
