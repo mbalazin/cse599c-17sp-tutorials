@@ -175,7 +175,7 @@ select src as user, count(*) as degree from T group by src;
 
 
 ### 2.4. unionall
-`+` or `unionall` concatenates two relations in MyriaL
+`+` or `unionall` concatenates two relations in MyriaL using the bag semantics.
 
 ```sql
 T1 = scan(TwitterK);
@@ -186,9 +186,9 @@ store(result, threeTimes);
 
 ## 3. Set operations
 
-Most operations in MyriaL treat the relation [like a bag rather than a set](https://courses.cs.washington.edu/courses/cse444/10sp/lectures/lecture16.pdf), like SQL. However, MyriaL also has set operations like union, difference, and distinct.
+Most operations in MyriaL treat the relation [like a bag rather than a set](https://courses.cs.washington.edu/courses/cse444/10sp/lectures/lecture16.pdf), like SQL. However, MyriaL also has set operators: `diff`, and `distinct`. `intersect` and `union` are not implemented yet. 
 
-List all unique users.
+*List all unique users*
 
 ```sql
 edges = scan(TwitterK);
@@ -200,7 +200,7 @@ store(vertices, users);
 ```
 Note the query plan created by MyriaX for the above query! It computes `left` and `right` in parallel.
 
-Find the users that only appear as the source of an edge.
+*Find the users that only appear as the source of an edge*
 ```sql
 edges = scan(TwitterK);
 left = select src as vertex from edges;
