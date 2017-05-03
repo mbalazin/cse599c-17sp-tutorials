@@ -335,7 +335,7 @@ store(comp_count, TwitterCC);
 
 ## 7. Asynchronous iterations
 
-The following code computes the connected components in the twitter dataset
+The following code computes the connected components in the twitter dataset using asynchronous mode of computation. The algorithm runs until convergence. 
 
 ```sql
 E = load("s3://uwdb/sampleData/TwitterK.csv", csv(schema(src:int, dst:int)));
@@ -349,10 +349,7 @@ until convergence async pull_idb;
 store(CC, CC_output);
 ```
 
-The Myria Catalog is case sensitive, so please make sure to Scan the correct relation name.
-
-
-### 8. Advanced Examples
+## 8. Advanced Examples
 
 * [PageRank in MyriaL](https://github.com/uwescience/raco/blob/master/examples/pagerank.myl)
 * [K-Means in MyriaL](https://github.com/uwescience/raco/blob/master/examples/kmeans.myl)
