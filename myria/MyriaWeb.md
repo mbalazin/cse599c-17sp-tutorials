@@ -271,7 +271,7 @@ To do a distributed counter, Myria has coordination operators like broadcast and
 
 ## 6. Synchronous iterations
 
-MyriaL supports Do-While loops. The loop can be terminated on a condition about the data, so you can write iterative programs.
+MyriaL supports `do...while` loops. The loop condition must be an expression that evaluates to a singleton relation with one boolean attribute ie. either `[true]` or `[false]`.
 
 *Find the vertices reachable from user 2*
 ```sql
