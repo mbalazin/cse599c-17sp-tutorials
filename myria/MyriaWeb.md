@@ -258,14 +258,14 @@ Stateful apply provides a way to define functions that keep mutable state.
 This program assigns a sequential id to each tuple. **Important**: stateful apply is partition-local. That means every partition keeps its own state. The following program produces 0,1,2... for the tuples on every partition.
 
 ```sql
-APPLY counter() {
+apply counter() {
   [0 AS c];
   [c + 1];
   c;
 };
-T1 = SCAN(TwitterK);
-T2 = [FROM T1 EMIT a, counter()];
-STORE (T2, identified);
+T1 = scan(TwitterK);
+T2 = [from T1 emit a, counter()];
+store(T2, identified);
 ```
 
 To do a distributed counter, Myria has coordination operators like broadcast and collect, but these are not currently exposed in MyriaL.
