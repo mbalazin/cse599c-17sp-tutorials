@@ -210,11 +210,11 @@ store(onlyleft, onlyAsSource);
 ```
 Also, notice how the query plans for the union, distinct operation is different from that of just diff!
 
-## Loops
+## 4. Loops
 
 MyriaL supports Do-While loops. The loop can be terminated on a condition about the data, so you can write iterative programs.
 
-Find the vertices reachable from user 821.
+Find the vertices reachable from user 2.
 
 ```sql
 edges = scan(TwitterK);
@@ -228,50 +228,22 @@ do
                               emit edges.dst as addr]);
     delta = diff(new_reachable, reachable);
     reachable = new_reachable + delta
-while ([from delta emit count(*)] > 0);
+while [from delta emit count(*) > 0];
 store(reachable, Reachable);
 ```
 
 The condition should be a relation with one tuple with one boolean attribute.
 
-## Expressions
-
-Expressions are any code that evaluate to scalar values in MyriaL. They can appear in the EMIT (comprehesions) or SELECT (SQL) or WHERE clauses.
-
-### Arithmetic
- MyriaL has a number of math functions.
-
-```sql
-    T3 = [FROM SCAN(TwitterK) as t EMIT sin(a)/4 + b AS x];
-    STORE(T3, ArithmeticExample);
-
-    --Unicode math operators ≤, ≥, ≠
-
-    T4 = [FROM SCAN(TwitterK) as t WHERE a ≤ b and a ≠ b and b ≥ a EMIT *];
-    STORE(T4,  ArithmeticExample2);
-```
-
-### Constants
-
-A constant is a *singleton relation* (a relation with a single 1-attribute tuple). You can use the relation as a scalar in an expression by preceding the name with `*` (we saw this in the loop example above).
-
-```sql
-N = [12];
-T = scan(TwitterK);
-S = select a, b from T where a = *N;
-store(S, filtered);
-```
-
-### User-defined functions
+### 5. User-defined functions
 
 MyriaL supports writing User-defined Functions (UDFs) and User-defined Aggregates (UDAs) in the MyriaL syntax.
-*Coming soon: Python UDFs!!*.
+*Next: Python UDFs!!*.
 
-User-defined function to calculate modulo.
+User-defined function to calculate some f.
 
 ```sql
-def mod(x, n): x - int(x/n)*n;
-T1 = [from scan(TwitterK) as t emit mod(a, b)];
+def mod(a, b): a - int(a/(b+1))*b;
+T1 = [from scan(TwitterK) as t emit mod(src, dst)];
 STORE(T1, udf_result);
 ```
 
@@ -302,7 +274,7 @@ T1 = [from cnt emit ArgMax(v, degree)];
 STORE(T1, max_degree);
 ```
 
-### Stateful Apply
+### 6. Stateful Apply
 
 Stateful apply provides a way to define functions that keep mutable state.
 
