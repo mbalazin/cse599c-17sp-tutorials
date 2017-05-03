@@ -133,7 +133,7 @@ T2 = scan(TwitterK);
 joined = [from T1, T2
           where T1.dst = T2.src
           emit T1.src AS src, T1.dst AS link, T2.dst AS dst];     
-store(Joined, TwoHopsInTwitter);
+store(joined, TwoHopsInTwitter);
 ```
 
 ### 2.3. aggregation
