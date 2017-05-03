@@ -190,21 +190,21 @@ Most operations in MyriaL treat the relation [like a bag rather than a set](http
 List all unique users.
 
 ```sql
-Edges = scan(TwitterK);
-Left = select a as v from Edges;
-Right = select b as v from Edges;
-Dups = Left + Right; 
-Vertices = select distinct v from Dups;
-store(Vertices, users);
+edges = scan(TwitterK);
+left = select src as vertex from edges;
+right = select dst as vertex from edges;
+dups = left + right; 
+vertices = select distinct vertex from dups;
+store(vertices, users);
 ```
 
 Find the users that only appear as the source of an edge.
 ```sql
-Edges = scan(TwitterK);
-Left = select a as v from Edges;
-Right = select b as v from Edges;
-onlyleft = diff(Left, Right);
-store(onlyleft, onlyleft);
+edges = scan(TwitterK);
+left = select src as vertex from edges;
+right = select dst as vertex from edges;
+onlyleft = diff(left, right);
+store(onlyleft, onlyAsSource);
 ```
 
 ## Loops
