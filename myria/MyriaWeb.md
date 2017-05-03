@@ -276,7 +276,7 @@ apply counter() {
   c;
 };
 T1 = scan(TwitterK);
-T2 = [from T1 emit a, counter()];
+T2 = [from T1 emit src, counter()];
 store(T2, identified);
 ```
 
