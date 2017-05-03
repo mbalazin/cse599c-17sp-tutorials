@@ -279,14 +279,16 @@ edges = scan(TwitterK);
 -- special syntax for a scalar constant in MyriaL.
 source = [2 AS addr];
 reachable = source;
-delta = source;
 do
     before_size = select count(*) as B
                   from reachable;
-    reachable = select edges.dst as addr
-    		from reachable, edges
-                where reachable.addr = edges.src;
-    after_size = select count(*) as A 
+    new_reachable = select edges.dst as addr
+    			from reachable, edges
+             	where reachable.addr = edges.src;
+    reachable = new_reachable + reachable;
+    reachable = select distinct addr
+    			from reachable;
+    after_size = select count(*) as A
     		 from reachable;
 while [from before_size, after_size emit A - B > 0];
 store(reachable, Reachable);
