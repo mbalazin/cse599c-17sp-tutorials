@@ -233,36 +233,41 @@ User-defined aggregate function to calculate an arg max. We'll use it to find th
 ```sql
 -- break ties by picking the first value
 def pickBasedOnValue(value1, arg1, value2, arg2):
-    case 
-    	when value1 >= value2 
+    case
+    	when value1 >= value2
     	then arg1
-    	else arg2 
+    	else arg2
     end;
 
 -- User defined aggregate that finds the argmax and max
 uda argMaxAndMax(arg, val) {
    -- init
-   [0 as _arg, 0 as _val];
+   [-1 as _arg, -1 as _val];
 
    -- update
    [pickBasedOnValue(val, arg, _val, _arg),
     pickBasedOnValue(val, val, _val, _val)];
 
    -- output
-   [_val, _arg];
+   [_arg, _val];
 };
 
 T = scan(TwitterK);
-cnt = [from T emit src as vertex, count(*) as degree];
-T1 = [from cnt emit argMaxAndMax(vertex, degree)];
-store(T1, max_degree);
+degrees = select dst as vertex, count(*) as followers
+		  from T;
+most_followed_follower = select T.dst, argMaxAndMax(D.followers, D.vertex)
+						 from T, degrees as D
+                         where T.src = D.vertex;
+store(most_followed_follower, MostFollowedFollower);
 ```
 
 ### 5. Stateful Apply
 
-Stateful apply provides a way to define functions that keep mutable state.
+General SQL syntax only allows pure functions in expression. Even UDFs described above does not allow you to do more complicated map functions such as those that require an internal state. 
 
-This program assigns a sequential id to each tuple. **Important**: stateful apply is partition-local. That means every partition keeps its own state. The following program produces 0,1,2... for the tuples on every partition.
+A very good example is to assign session ids to clickstreams based on the interval between two clicks. You need to record the last time a click was received in order to decide whether to assign the next session id or the same session id to a clickstream. 
+
+The following program assigns a sequential id to each tuple. **Important**: stateful apply is partition-local. That means every partition keeps its own state. The following program produces 0,1,2... for the tuples on every partition.
 
 ```sql
 apply counter() {
