@@ -221,7 +221,7 @@ T1 = [from scan(TwitterK) as t emit foo(src, dst)];
 store(T1, udf_result);
 ```
 A *user-defined aggregate function*, which is sometimes called an UDAF or UDA takes in a series of inputs and produces a single output for the series. The syntax for defining a UDA is as follows:
-```sql
+```
 uda func-name(args) {
  initialization-expr(s);
  update-expr(s);
@@ -232,27 +232,30 @@ User-defined aggregate function to calculate an arg max. We'll use it to find th
 
 ```sql
 -- break ties by picking the first value
-def pickval(value, arg, _value, _arg):
-    case when value >= _value then arg
-        else _arg end;
+def pickBasedOnValue(value1, arg1, value2, arg2):
+    case 
+    	when value1 >= value2 
+    	then arg1
+    	else _arg 
+    end;
 
--- Every UDA has three statements: *init* to specify the state attributes and set initial values, *update* run for each tuple, and *output* to calculate the final result.
-
-uda ArgMax(arg, val) {
+-- User defined aggregate that finds the argmax and max
+uda argMaxAndMax(arg, val) {
    -- init
    [0 as _arg, 0 as _val];
 
    -- update
-   [pickval(val, arg, _val, _arg),
-    pickval(val, val, _val, _val)];
+   [pickBasedOnValue(val, arg, _val, _arg),
+    pickBasedOnValue(val, val, _val, _val)];
 
    -- output
    [_val, _arg];
 };
 
-cnt = [from scan(TwitterK) as t emit t.a as v, count(*) as degree];
-T1 = [from cnt emit ArgMax(v, degree)];
-STORE(T1, max_degree);
+T = scan(TwitterK);
+cnt = [from T emit src as vertex, count(*) as degree];
+T1 = [from cnt emit argMaxAndMax(v, degree)];
+store(T1, max_degree);
 ```
 
 ### 5. Stateful Apply
