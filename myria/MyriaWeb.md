@@ -188,7 +188,7 @@ store(result, threeTimes);
 
 Most operations in MyriaL treat the relation [like a bag rather than a set](https://courses.cs.washington.edu/courses/cse444/10sp/lectures/lecture16.pdf), like SQL. However, MyriaL also has set operators: `diff`, and `distinct`. `intersect` and `union` are not implemented yet. 
 
-*List all unique users*
+### 3.1. List all unique users
 
 ```sql
 edges = scan(TwitterK);
@@ -200,7 +200,7 @@ store(vertices, users);
 ```
 Note the query plan created by MyriaX for the above query! It computes `left` and `right` in parallel.
 
-*Find the users that only appear as the source of an edge*
+### 3.2. Find the users that only appear as the source of an edge
 ```sql
 edges = scan(TwitterK);
 left = select src as vertex from edges;
@@ -211,9 +211,9 @@ store(onlyleft, onlyAsSource);
 Also, notice how the query plans for the union, distinct operation is different from that of just diff!
 
 
-### 4. User-defined functions
+## 4. User-defined functions
 
-MyriaL allows users to define two kinds of functions: UDF and UDA. A *user-defined function (UDF)* takes one or more parameters to produce an output.*
+MyriaL allows users to define two kinds of functions: UDF and UDA. A *user-defined function (UDF)* takes one or more parameters to produce an output.
 
 User-defined function to calculate some foo.
 
