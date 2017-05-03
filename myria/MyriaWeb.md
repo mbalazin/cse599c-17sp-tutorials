@@ -299,11 +299,11 @@ do
     before_size = select count(*) as B
                   from reachable;
     new_reachable = select edges.dst as addr
-    			from reachable, edges
-             	where reachable.addr = edges.src;
+    		    from reachable, edges
+             	    where reachable.addr = edges.src;
     reachable = new_reachable + reachable;
     reachable = select distinct addr
-    			from reachable;
+    		from reachable;
     after_size = select count(*) as A
     		 from reachable;
 while [from before_size, after_size emit A - B > 0];
