@@ -344,24 +344,10 @@ until convergence async pull_idb;
 store(CC, CC_output);
 ```
 
-### Types
-
-MyriaL supports a number of types for attributes (and expressions) and performs type checking.
-
-- integer
-- long
-- float
-- double
-- string
-- datetime
-- *coming soon:* blob
-
-## Gotchas
-
 The Myria Catalog is case sensitive, so please make sure to Scan the correct relation name.
 
 
-## Advanced Examples
+### 8. Advanced Examples
 
 * [PageRank in MyriaL](https://github.com/uwescience/raco/blob/master/examples/pagerank.myl)
 * [K-Means in MyriaL](https://github.com/uwescience/raco/blob/master/examples/kmeans.myl)
