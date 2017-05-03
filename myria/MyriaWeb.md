@@ -236,7 +236,7 @@ def pickBasedOnValue(value1, arg1, value2, arg2):
     case 
     	when value1 >= value2 
     	then arg1
-    	else _arg 
+    	else arg2 
     end;
 
 -- User defined aggregate that finds the argmax and max
@@ -254,7 +254,7 @@ uda argMaxAndMax(arg, val) {
 
 T = scan(TwitterK);
 cnt = [from T emit src as vertex, count(*) as degree];
-T1 = [from cnt emit argMaxAndMax(v, degree)];
+T1 = [from cnt emit argMaxAndMax(vertex, degree)];
 store(T1, max_degree);
 ```
 
