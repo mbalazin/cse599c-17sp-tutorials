@@ -114,7 +114,7 @@ store(s, selfloops);
 
 `from T` means read tuples from relation T. `where src = dst` means only keep tuples where the value of `src` is equal to the value of `dst`. The `*` in `emit *` means the resulting relation should contain *all* the attributes from the relations in the `from` clause (in this case, the attributes of `T`: `src` and `dst`).
 
-### join
+### 2.2. join
 
 Joins let us match two relations on 1 or more attributes. This query finds all the friend-of-friend relationships in TwitterK.
 
@@ -136,7 +136,7 @@ joined = [from T1, T2
 store(Joined, TwoHopsInTwitter);
 ```
 
-### Aggregation
+### 2.3. aggregation
 
 Aggregation lets us combine results from multiple tuples. This query counts the number of friends for user 821.
 
@@ -173,15 +173,14 @@ select src as user, count(*) as degree from T group by src;
 ```
 
 
-### `unionall` (Concatentation)
-
-`+` or `UNIONALL` concatenates to relations in MyriaL
+### unionall
+`+` or `unionall` concatenates two relations in MyriaL
 
 ```sql
-T1 = SCAN(TwitterK);
+T1 = scan(TwitterK);
 result = T1+T1;
-result = UNIONALL(result, T1);
-STORE(result, threeTimes);
+result = unionall(result, T1);
+store(result, threeTimes);
 ```
 
 ### Set operations
