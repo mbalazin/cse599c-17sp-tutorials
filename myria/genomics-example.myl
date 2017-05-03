@@ -1,0 +1,56 @@
+-- Step 1: ingest the data:
+
+T1 = load("https://s3-us-west-2.amazonaws.com/cse544data/S0001.csv",
+csv(schema(id:string,seq:string),skip=1));
+store(T1, s1_seq);
+T1 = load("https://s3-us-west-2.amazonaws.com/cse544data/S0002.csv",
+csv(schema(id:string,seq:string),skip=1));
+store(T1, s2_seq);
+
+-- Step 2: extract and count the kmers: 
+
+T1 = scan(s1_seq);
+s = select "s1" as sample, ngram(seq, 11) as kmer from T1;
+s_cnt = select sample, kmer, count(kmer) as cnt from s;
+store(s_cnt, s1, [kmer]);
+
+-- run after the previous query
+T2 = scan(s2_seq);
+s = select "s2" as sample, ngram(seq, 11) as kmer from T2;
+s_cnt = select sample, kmer, count(kmer) as cnt from s;
+store(s_cnt, s2, [kmer]);
+
+-- Step 3: find the sum of all cnts:
+s1 = scan(s1);
+s2 = scan(s2);
+s1c = select sample, sum(cnt) as sum_cnt from s1;
+s2c = select sample, sum(cnt) as sum_cnt from s2;
+store(s1c, s1_cnt);
+store(s2c, s2_cnt);
+
+-- Step 4: Find the normalized cnts:
+s1 = scan(s1);
+s2 = scan(s2);
+s = s1 + s2;
+s1c = scan(s1_cnt);
+s2c = scan(s2_cnt);
+sums = s1c + s2c;
+sn = select samps.kmer, samps.sample, samps.cnt/sc.sum_cnt as norm_cnt from s samps, sums sc where samps.sample = sc.sample;
+store(sn, s_norms_cnt, [kmer]);
+
+-- Step 5: find the entropy:
+
+kmercnts = scan(s_norms_cnt);
+entropy = select k.sample, 22+sum(k.norm_cnt*log(k.norm_cnt)/log(2)) as entropy from kmercnts k;
+store(entropy, entropy_combined);
+
+-- Step 6: find the bray-curtis dissimilarity:
+kmers = scan(s_norms_cnt);
+X = select a.sample as asample, b.sample as bsample,
+case when a.norm_cnt < b.norm_cnt then a.norm_cnt else b.norm_cnt end as minv
+from kmers a, kmers b
+where a.kmer = b.kmer and a.sample < b.sample;
+Y = select asample, bsample, 1 - sum(minv) as BCdis from X;
+store(Y, BC_s1_s2);
+
+
