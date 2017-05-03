@@ -173,7 +173,7 @@ select src as user, count(*) as degree from T group by src;
 ```
 
 
-### unionall
+### 2.4. unionall
 `+` or `unionall` concatenates two relations in MyriaL
 
 ```sql
@@ -183,7 +183,7 @@ result = unionall(result, T1);
 store(result, threeTimes);
 ```
 
-### Set operations
+## 3. Set operations
 
 Most operations in MyriaL treat the relation [like a bag rather than a set](https://courses.cs.washington.edu/courses/cse444/10sp/lectures/lecture16.pdf), like SQL. However, MyriaL also has set operations like union, difference, and distinct.
 
@@ -193,7 +193,7 @@ List all unique users.
 Edges = scan(TwitterK);
 Left = select a as v from Edges;
 Right = select b as v from Edges;
-Dups = Left + Right;
+Dups = Left + Right; 
 Vertices = select distinct v from Dups;
 store(Vertices, users);
 ```
