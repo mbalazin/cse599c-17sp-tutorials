@@ -213,16 +213,21 @@ Also, notice how the query plans for the union, distinct operation is different 
 
 ## 4. User-defined functions
 
-MyriaL allows users to define two kinds of functions: UDF and UDA. A *user-defined function (UDF)* takes one or more parameters to produce an output.
-
-User-defined function to calculate some foo.
+MyriaL allows users to define two kinds of functions: UDF and UDA. A *user-defined function (UDF)* takes one or more parameters to produce an output. The function `foo` below is a UDF and it can be directly invoked in any of the expressions.
 
 ```sql
 def foo(a, b): a - int(a/(b+1))*b;
 T1 = [from scan(TwitterK) as t emit foo(src, dst)];
 store(T1, udf_result);
 ```
-
+A *user-defined aggregate function*, which is sometimes called an UDAF or UDA takes in a series of inputs and produces a single output for the series. The syntax for defining a UDA is as follows:
+```sql
+uda func-name(args) {
+ initialization-expr(s);
+ update-expr(s);
+ result-expr(s);
+};
+```
 User-defined aggregate function to calculate an arg max. We'll use it to find the vertex with the largest degree.
 
 ```sql
