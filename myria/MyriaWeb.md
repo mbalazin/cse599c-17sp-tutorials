@@ -333,7 +333,7 @@ comp_count = [from con_comp emit cid as id, count(*) as cnt];
 store(comp_count, TwitterCC);
 ```
 
-## 8. Advanced Examples
+## 7. Advanced Examples
 
 * [PageRank in MyriaL](https://github.com/uwescience/raco/blob/master/examples/pagerank.myl)
 * [K-Means in MyriaL](https://github.com/uwescience/raco/blob/master/examples/kmeans.myl)
