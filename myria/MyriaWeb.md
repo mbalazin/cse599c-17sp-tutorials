@@ -333,22 +333,6 @@ comp_count = [from con_comp emit cid as id, count(*) as cnt];
 store(comp_count, TwitterCC);
 ```
 
-## 7. Asynchronous iterations
-
-The following code computes the connected components in the twitter dataset using asynchronous mode of computation. The algorithm runs until convergence. 
-
-```sql
-E = load("s3://uwdb/sampleData/TwitterK.csv", csv(schema(src:int, dst:int)));
-V = [from E emit src as x] + [from E emit dst as x];
-V = select distinct x from V;
-do
-  CC = [nid, MIN(cid) as cid] <-
-    [from V emit V.x as nid, V.x as cid] +
-    [from E, CC where E.src = CC.nid emit E.dst as nid, CC.cid];
-until convergence async pull_idb;
-store(CC, CC_output);
-```
-
 ## 8. Advanced Examples
 
 * [PageRank in MyriaL](https://github.com/uwescience/raco/blob/master/examples/pagerank.myl)
