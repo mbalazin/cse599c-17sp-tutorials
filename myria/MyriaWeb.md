@@ -186,7 +186,7 @@ store(result, threeTimes);
 
 ## 3. Set operations
 
-Most operations in MyriaL treat the relation [like a bag rather than a set](https://courses.cs.washington.edu/courses/cse444/10sp/lectures/lecture16.pdf), like SQL. However, MyriaL also has set operators: `diff`, and `distinct`. `intersect` and `union` are not implemented yet. 
+Most operations in MyriaL treat the relation [like a bag rather than a set](https://courses.cs.washington.edu/courses/cse444/10sp/lectures/lecture16.pdf), like SQL. However, MyriaL also has set operators: `diff`, and `distinct`. `intersect` and `union` (set-semantics) are not implemented but can be composed using `diff`, `unionall` and `distinct`. 
 
 ### 3.1. List all unique users
 
@@ -210,6 +210,7 @@ store(onlyleft, onlyAsSource);
 ```
 Also, notice how the query plans for the union, distinct operation is different from that of just diff!
 
+*Exercise: Find all users who follow someone and are followed by someone.*
 
 ## 4. User-defined functions
 
