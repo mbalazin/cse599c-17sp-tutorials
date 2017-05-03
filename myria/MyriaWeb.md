@@ -198,6 +198,7 @@ dups = left + right;
 vertices = select distinct vertex from dups;
 store(vertices, users);
 ```
+*Note the query plan created by MyriaX for the above query! It computes `left` and `right` in parallel.*
 
 Find the users that only appear as the source of an edge.
 ```sql
