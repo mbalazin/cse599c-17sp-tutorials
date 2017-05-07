@@ -2,29 +2,17 @@
 
 ## 1. Local installation, CPU-only
 To follow along in class, you'll need to install Tensorflow locally at the very minimum. The full installation guide for Tensorflow is [here](https://www.tensorflow.org/install/).
-For this installation guide, we're assuming you have pip and virtualenv installed already.
-
-First create a virtual environment
-```
-$ virtualenv --system-site-packages <virtual_env_directory>
-```
-(We recommend picking this repository's tensorflow directory)
-
-Activate the virtual environment
-```
-$ source ~/tensorflow/bin/activate # bash, sh, ksh, or zsh
-$ source ~/tensorflow/bin/activate.csh  # csh or tcsh
-```
+For this installation guide, we're assuming you have pip installed already.
 
 Then run the following instructions to install Tensorflow:
 ```
-(tensorflow)$ pip install --upgrade tensorflow # for Python 2.7
-(tensorflow)$ pip3 install --upgrade tensorflow # for Python 3.n
+$ pip install --upgrade tensorflow # for Python 2.7
+$ pip3 install --upgrade tensorflow # for Python 3.n
 ```
 If that didn't work, try
 ```
-(tensorflow)$ pip install --upgrade TF_PYTHON_URL   # Python 2.7
-(tensorflow)$ pip3 install --upgrade TF_PYTHON_URL  # Python 3.N 
+$ pip install --upgrade TF_PYTHON_URL   # Python 2.7
+$ pip3 install --upgrade TF_PYTHON_URL  # Python 3.N 
 ```
 where you have to look up the appropriate TF_PYTHON_URL for your system:
 [Linux](https://www.tensorflow.org/install/install_linux#the_url_of_the_tensorflow_python_package)
@@ -64,3 +52,24 @@ Execute the following command on each EC2 instance:
 ```
 
 The first EC2 instance serves as the job dispatcher and parameter server, and the next two EC2 instances run as workers. 
+
+## 4. Compare Tensorflow with Spark
+
+We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). This session uses Jupyter Notebook and requires local installation of Tensorflow and Spark. 
+
+Firstly, open Jupyter Notebook:
+```
+jupyter notebook
+```
+In your browser, open ``tensorflow_mlp_mnist_notebook.ipynb'', run the cells in it and get the training time and accuracy.
+
+In your browser, open ``spark_mlp_mnist_notebook.ipynb'', in the cell of ``Spark'', change the memory and master address according to your machine setting.
+```
+#set memory to 3/4 memory of your machine
+conf.set("spark.executor.memory", "12g")
+```
+```
+master="spark://Administrators-MacBook-Pro.local:7077",
+```
+
+Then run the cells in it and get the training time and accuracy.
