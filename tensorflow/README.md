@@ -69,7 +69,12 @@ In your browser, open ``spark_mlp_mnist_notebook.ipynb'', in the cell of ``Spark
 conf.set("spark.executor.memory", "12g")
 ```
 ```
-master="spark://Administrators-MacBook-Pro.local:7077",
+master="spark://Administrators-MacBook-Pro.local:7077"
+```
+
+Start spark by running script provided in Spark directory, for example,
+```
+./sbin/start-all.sh
 ```
 
 Then run the cells in it and get the training time and accuracy.
