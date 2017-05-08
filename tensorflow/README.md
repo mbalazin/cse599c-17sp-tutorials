@@ -23,18 +23,30 @@ where you have to look up the appropriate TF_PYTHON_URL for your system:
 The other option is to run Tensorflow on AWS. You will need to sign up for AWS Free Tier [here](https://aws.amazon.com/free/).
 
 To run Tensorflow in an EC2 instance, the easiest way is to launch a Deep Learning AMI on a micro instance [here](https://aws.amazon.com/marketplace/pp/B06VSPXKDX?qid=1494286814487&sr=0-2&ref_=srh_res_product_title).
-Use the one-click launch with the defaults, but make sure you choose the t2.micro instance type. If you do not have a key-pair, you will need to create one in your
-AWS management console. Make sure to save the key file. Launch the instance.
+Use the one-click launch with the defaults, but make sure you choose the t2.micro instance type. If you do not have a key-pair, you will need to create one in your AWS management console. Make sure to save the key file. Launch the instance.
+
+Modify the permissions on the key file:
+```
+chmod 400 /path/my-key-pair.pem
+```
 
 After you launch the instance, go into your management console and wait until your instance is ready. When it is, ssh into the machine by specifying your private key and user_name@public_dns_name.
 For example:
 ```
-ssh -i /path/my-key-pair.pem ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com
+ssh -L localhost:8888:localhost:8888 -i /path/my-key-pair.pem ubuntu@ec2-198-51-100-1.compute-1.amazonaws.com
 ```
 
 Once you log into your instance, you should be able to run tensorflow!
 
 If you would like to run a Jupyter notebook on this EC2 instance, follow the instructions [here](https://aws.amazon.com/blogs/ai/the-aws-deep-learning-ami-now-with-ubuntu/).
+
+Open Jupyter using the command:
+```
+jupyter notebook
+```
+
+Wait until you are given a URL to connect to this notebook. Navigate to the URL on your browser.
+
 
 # Running Tensorflow
 
@@ -59,7 +71,7 @@ The first EC2 instance serves as the job dispatcher and parameter server, and th
 
 We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). This session uses Jupyter Notebook and requires local installation of Tensorflow and Spark. 
 
-Firstly, open Jupyter Notebook:
+First, navigate to this directory of the cloned repository and open a Jupyter Notebook:
 ```
 jupyter notebook
 ```
