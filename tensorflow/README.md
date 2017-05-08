@@ -36,7 +36,9 @@ Once you log into your instance, you should be able to run tensorflow!
 
 If you would like to run a Jupyter notebook on this EC2 instance, follow the instructions [here](https://aws.amazon.com/blogs/ai/the-aws-deep-learning-ami-now-with-ubuntu/).
 
-## 3. Running Tensorflow distributed training
+# Running Tensorflow
+
+## 3. Distributed training
 Training with distributed Tensorflow has a dispatcher-worker architecture. We give an example to train the MNIST digit recognition model on EC2. 
 
 First, create a security policy that exposes TCP port 2222. Create 3 EC2 instances with the provided image and the security policy. 
@@ -53,7 +55,7 @@ Execute the following command on each EC2 instance:
 
 The first EC2 instance serves as the job dispatcher and parameter server, and the next two EC2 instances run as workers. 
 
-## 4. Compare Tensorflow with Spark
+# 4. Compare Tensorflow to Spark
 
 We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). This session uses Jupyter Notebook and requires local installation of Tensorflow and Spark. 
 
