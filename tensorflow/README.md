@@ -22,7 +22,7 @@ where you have to look up the appropriate TF_PYTHON_URL for your system:
 ## 2. Running Tensorflow on AWS
 The other option is to run Tensorflow on AWS. You will need to sign up for AWS Free Tier [here](https://aws.amazon.com/free/).
 
-To run Tensorflow in an EC2 instance, the easiest way is to launch a Deep Learning AMI on a micro instance [here](https://aws.amazon.com/marketplace/pp/B01M0AXXQB?qid=1493957319565&sr=0-3&ref_=srh_res_product_title).
+To run Tensorflow in an EC2 instance, the easiest way is to launch a Deep Learning AMI on a micro instance [here](https://aws.amazon.com/marketplace/pp/B06VSPXKDX?qid=1494286814487&sr=0-2&ref_=srh_res_product_title).
 Use the one-click launch with the defaults, but make sure you choose the t2.micro instance type. If you do not have a key-pair, you will need to create one in your
 AWS management console. Make sure to save the key file. Launch the instance.
 
