@@ -30,15 +30,13 @@ Modify the permissions on the key file:
 chmod 400 /path/my-key-pair.pem
 ```
 
-After you launch the instance, go into your management console and wait until your instance is ready. When it is, ssh into the machine by specifying your private key and user_name@public_dns_name.
+After you launch the instance, go into your management console and wait until your instance is ready. When it is, ssh into the machine by specifying your private key and user_name@public_dns_name. This will also set up an SSH tunnel.
 For example:
 ```
 ssh -L localhost:8888:localhost:8888 -i /path/my-key-pair.pem ubuntu@ec2-198-51-100-1.compute-1.amazonaws.com
 ```
 
 Once you log into your instance, you should be able to run tensorflow!
-
-If you would like to run a Jupyter notebook on this EC2 instance, follow the instructions [here](https://aws.amazon.com/blogs/ai/the-aws-deep-learning-ami-now-with-ubuntu/).
 
 Open Jupyter using the command:
 ```
