@@ -37,7 +37,7 @@ Once you log into your instance, you should be able to run tensorflow!
 If you would like to run a Jupyter notebook on this EC2 instance, follow the instructions [here](https://aws.amazon.com/blogs/ai/the-aws-deep-learning-ami-now-with-ubuntu/).
 
 ## 3. Running Tensorflow distributed training
-Trining with distributed Tensorflow has a dispather-worker archetecture. We given an example to train the MNIST digit recognition model on EC2. 
+Training with distributed Tensorflow has a dispatcher-worker architecture. We give an example to train the MNIST digit recognition model on EC2. 
 
 First, create a security policy that exposes TCP port 2222. Create 3 EC2 instances with the provided image and the security policy. 
 
