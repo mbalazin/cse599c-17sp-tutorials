@@ -48,15 +48,28 @@ Wait until you are given a URL to connect to this notebook. Navigate to the URL 
 
 # Running Tensorflow
 
-## 3. Compare Tensorflow to Spark
+## 1. Hello World
 
-We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). This session uses Jupyter Notebook and requires local installation of Tensorflow and Spark. 
+This session uses Jupyter Notebook and requires local installation of Tensorflow and Spark. 
 
 First, navigate to this directory of the cloned repository and open a Jupyter Notebook:
 ```
 jupyter notebook
 ```
-In your browser, open ``tensorflow_mlp_mnist_notebook.ipynb'', run the cells in it and get the training time and accuracy.
+Let's run Hello World!
+```
+import tensorflow as tf
+hello = tf.constant('Hello, TensorFlow!')
+sess = tf.Session()
+print(sess.run(hello))
+```
+
+## 2. Basic usage of Tensorflow
+
+## 3. Compare Tensorflow to Spark
+
+We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). 
+Open ``tensorflow_mlp_mnist_notebook.ipynb'' in your Jupyter Notebook and run the cells in it and get the training time and accuracy.
 
 In your browser, open ``spark_mlp_mnist_notebook.ipynb'', in the cell of ``Spark'', change the memory and master address according to your machine setting.
 ```
