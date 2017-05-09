@@ -22,7 +22,7 @@ if sys.version_info[0] >= 3:
 else:
   from urllib import urlretrieve
 
-LOGDIR = '/tmp/mnist_tutorial/'
+LOGDIR = './mnist_log/'
 GITHUB_URL ='https://raw.githubusercontent.com/mamcgrath/TensorBoard-TF-Dev-Summit-Tutorial/master/'
 
 ### MNIST EMBEDDINGS ###
@@ -138,15 +138,14 @@ def make_hparam_string(learning_rate, use_two_fc, use_two_conv):
 def main():
   # You can try adding some more learning rates
   for learning_rate in [1E-4]:
-
     # Include "False" as a value to try different model architectures
     for use_two_fc in [True]:
-      for use_two_conv in [True]:
+      for use_two_conv in [False, True]:
         # Construct a hyperparameter string for each one (example: "lr_1E-3,fc=2,conv=2)
         hparam = make_hparam_string(learning_rate, use_two_fc, use_two_conv)
         print('Starting run for %s' % hparam)
 
-	    # Actually run with the new settings
+	      # Actually run with the new settings
         mnist_model(learning_rate, use_two_fc, use_two_conv, hparam)
 
 
