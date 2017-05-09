@@ -22,22 +22,34 @@ where you have to look up the appropriate TF_PYTHON_URL for your system:
 ## 2. Running Tensorflow on AWS
 The other option is to run Tensorflow on AWS. You will need to sign up for AWS Free Tier [here](https://aws.amazon.com/free/).
 
-To run Tensorflow in an EC2 instance, the easiest way is to launch a Deep Learning AMI on a micro instance [here](https://aws.amazon.com/marketplace/pp/B01M0AXXQB?qid=1493957319565&sr=0-3&ref_=srh_res_product_title).
-Use the one-click launch with the defaults, but make sure you choose the t2.micro instance type. If you do not have a key-pair, you will need to create one in your
-AWS management console. Make sure to save the key file. Launch the instance.
+To run Tensorflow in an EC2 instance, the easiest way is to launch a Deep Learning AMI [here](https://aws.amazon.com/marketplace/pp/B06VSPXKDX?qid=1494286814487&sr=0-2&ref_=srh_res_product_title).
+Use the one-click launch with the defaults. If you want to use the Free Tier, choose the t2.micro instance type. If you want to take advantage of the GPU, you should try launching a GPU instance type, but those will cost money! 
 
-After you launch the instance, go into your management console and wait until your instance is ready. When it is, ssh into the machine by specifying your private key and user_name@public_dns_name.
+To launch an instance, you'll need a key-pair. If you do not have a key-pair, you will need to create one in your AWS management console. Make sure to save the key file. Modify the permissions on the key file:
+```
+chmod 400 /path/my-key-pair.pem
+```
+
+Now launch your instance. Go into your management console and wait until your instance is ready. When it is, ssh into the machine by specifying your private key and user_name@public_dns_name. This will also set up an SSH tunnel.
 For example:
 ```
-ssh -i /path/my-key-pair.pem ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com
+ssh -L localhost:8888:localhost:8888 -i /path/my-key-pair.pem ubuntu@ec2-198-51-100-1.compute-1.amazonaws.com
 ```
 
 Once you log into your instance, you should be able to run tensorflow!
 
-If you would like to run a Jupyter notebook on this EC2 instance, follow the instructions [here](https://aws.amazon.com/blogs/ai/the-aws-deep-learning-ami-now-with-ubuntu/).
+Open Jupyter using the command:
+```
+jupyter notebook
+```
 
-## 3. Running Tensorflow distributed training
-Trining with distributed Tensorflow has a dispather-worker archetecture. We given an example to train the MNIST digit recognition model on EC2. 
+Wait until you are given a URL to connect to this notebook. Navigate to the URL on your browser.
+
+
+# Running Tensorflow
+
+## 3. Distributed training
+Training with distributed Tensorflow has a dispatcher-worker architecture. We give an example to train the MNIST digit recognition model on EC2. 
 
 First, create a security policy that exposes TCP port 2222. Create 3 EC2 instances with the provided image and the security policy. 
 
@@ -53,11 +65,11 @@ Execute the following command on each EC2 instance:
 
 The first EC2 instance serves as the job dispatcher and parameter server, and the next two EC2 instances run as workers. 
 
-## 4. Compare Tensorflow with Spark
+## 4. Compare Tensorflow to Spark
 
 We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). This session uses Jupyter Notebook and requires local installation of Tensorflow and Spark. 
 
-Firstly, open Jupyter Notebook:
+First, navigate to this directory of the cloned repository and open a Jupyter Notebook:
 ```
 jupyter notebook
 ```
