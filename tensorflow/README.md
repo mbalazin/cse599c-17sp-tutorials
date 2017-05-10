@@ -68,7 +68,7 @@ print(sess.run(hello))
 
 Tensorflow usage locally is demonstrated with the help of Convolutional and Recurrent Neural Networks Tutorials. Tensor Playground is presented to visualize the real-time performance of neural networks.
 
-Run "RNN_CNN_Tensorflow.ipynb" to train the model and get accuracy.
+Create two folders in the jupyter notebook "tf_log" and "tf_cnnlog" to store the log files which would be later used to visualize the model in tensorboard. Run "RNN_CNN_Tensorflow.ipynb" to train the model and get accuracy.
 
 ## 3. Compare Tensorflow to Spark
 
