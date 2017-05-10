@@ -66,6 +66,10 @@ print(sess.run(hello))
 
 ## 2. Basic usage of Tensorflow
 
+Tensorflow usage locally is demonstrated with the help of Convolutional and Recurrent Neural Networks Tutorials. Tensor Playground is presented to visualize the real-time performance of neural networks.
+
+Run "RNN_CNN_Tensorflow.ipynb" to train the model and get accuracy.
+
 ## 3. Compare Tensorflow to Spark
 
 We compare Tensorflow with Spark by applying multilayer perceptron (MLP) with two hidden layers on MNIST handwritten digit dataset ([MNIST](http://yann.lecun.com/exdb/mnist/)). 
