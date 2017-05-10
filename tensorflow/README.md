@@ -116,4 +116,4 @@ For the Tensorboard demo with mnist, run tensorboard/mnist.py, and then
 ```
 tensorboard --logdir=mnist_log
 ```
-Then point your browser to the address shown (e.g. http://localhost:6006).
+Then point your browser to the address shown (e.g. http://10.0.0.7:6006).
