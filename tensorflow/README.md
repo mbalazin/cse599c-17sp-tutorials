@@ -98,9 +98,9 @@ Then, after the instances are assigned, modify the hardcoded IP addresses in dis
 Execute the following command on each EC2 instance:
 
 ```
-(EC2-instance1)$ python example.py --job_name="ps" --task_index=0 
-(EC2-instance2)$ python example.py --job_name="worker" --task_index=0 
-(EC2-instance3)$ python example.py --job_name="worker" --task_index=1 
+(EC2-instance1)$ python dist-tf.py --job_name="ps" --task_index=0 
+(EC2-instance2)$ python dist-tf.py --job_name="worker" --task_index=0 
+(EC2-instance3)$ python dist-tf.py --job_name="worker" --task_index=1 
 ```
 
 The first EC2 instance serves as the job dispatcher and parameter server, and the next two EC2 instances run as workers. 
