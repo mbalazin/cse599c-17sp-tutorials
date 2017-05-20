@@ -255,9 +255,9 @@ uda argMaxAndMax(arg, val) {
 
 T = scan(TwitterK);
 degrees = select dst as vertex, count(*) as followers
-		  from T;
+	  from T;
 most_followed_follower = select T.dst, argMaxAndMax(D.followers, D.vertex)
-						 from T, degrees as D
+			 from T, degrees as D
                          where T.src = D.vertex;
 store(most_followed_follower, MostFollowedFollower);
 ```
