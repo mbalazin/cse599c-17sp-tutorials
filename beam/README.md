@@ -23,9 +23,9 @@ Next, you'll need to generate a file that contains your service credentials for 
 3. Click *Create credentials*.
 4. Select *Service account key*.  A _Create service account key_ window will open.
 5. Click the drop-down box below _Service account_, then click *New service account*.
-6. Enter any name for the service account in *Name*, or use the default.
-7. Use the default *Service account ID* or generate a different one.
-8. Select *Project->Owner* for the role.
+6. Enter any name for the service account in *Name*.
+7. Select *Project->Owner* for the role.
+8. Use the default *Service account ID* or generate a different one.
 9. Select the key type: *JSON*.
 10. Click *Create*.  A *Service account created* window is displayed and the private key file is downloaded automatically.
 11. Remember where you saved this file, because you will need it on Wednesday!
