@@ -19,20 +19,21 @@ The majority of our demo will be done locally on the EC2 instances we set up, bu
 Next, you'll need to generate a file that contains your service credentials for the Google Cloud API.  To do this, perform the following steps:
 
 1. [Open the list of credentials](https://console.cloud.google.com/apis/credentials) in the Google Cloud Platform Console.
-2. Click *Create credentials*.
-3. Select *Service account key*.  A _Create service account key_ window will open.
-4. Click the drop-down box below _Service account_, then click *New service account*.
-5. Enter any name for the service account in *Name*, or use the default.
-6. Use the default *Service account ID* or generate a different one.
-7. Select *Project->Owner* for the role.
-8. Select the key type: *JSON*.
-9. Click *Create*.  A *Service account created* window is displayed and the private key file is downloaded automatically.
-10. Remember where you saved this file, because you will need it on Wednesday!
+2. Select a project from the dropdown near the top-left of the screen.  If you don't have a project, create a new one by clicking the *plus*.
+3. Click *Create credentials*.
+4. Select *Service account key*.  A _Create service account key_ window will open.
+5. Click the drop-down box below _Service account_, then click *New service account*.
+6. Enter any name for the service account in *Name*, or use the default.
+7. Use the default *Service account ID* or generate a different one.
+8. Select *Project->Owner* for the role.
+9. Select the key type: *JSON*.
+10. Click *Create*.  A *Service account created* window is displayed and the private key file is downloaded automatically.
+11. Remember where you saved this file, because you will need it on Wednesday!
 
 ### Enable Dataflow on your Google Cloud Service Account
 
 1. Visit the [Dataflow API manager](https://console.developers.google.com/apis/api/dataflow.googleapis.com/overview).
-2. Select a project from the dropdown near the top-left of the screen.  If you don't have a project, create a new one by clicking the *plus*.
+2. Select a project from the dropdown near the top-left of the screen.
 3. Click *Enable* in the main window to enable Dataflow for this project.
 
 ## Disabling your account:
